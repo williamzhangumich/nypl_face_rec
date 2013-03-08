@@ -15,7 +15,7 @@ Files and Folders:
 ./face_rotate.py: a script to rotate faces (http://docs.opencv.org/modules/contrib/doc/facerec/tutorial/facerec_video_recognition.html#aligning-face-images)
 ./pyfaces_api.py: pyface api to recognize (match) faces
 ./gallery: includes a few sample images to be recognized
-./prob_source: seed images to generate ./prob folder faces for recognition
+./prob_source: seed images to generate ./prob folder faces for recognition, these files should be properly named!!!
 ./prob: collection of faces to be compared with, should be normalized, well positioned and cropped
      
 ./cascades: includes haar cascade files for faces and eyes

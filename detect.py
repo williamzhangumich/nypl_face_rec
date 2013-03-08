@@ -15,7 +15,7 @@ FACE_SIZE = 100
 HW_RATIO = 1.1
 
 # Num of significant eigenvectors
-# This should probably be a variable, need further research
+# This should probably be a VARIABLE, need further research
 NUM_EIGENVECTOR = 8
 # Threshold for distance, need more experiment, 0.5 is too high
 DISTANCE_THRESHOLD = 0.5
@@ -49,10 +49,12 @@ def detect_face(path):
             faces.append(face)
     return image, faces
 
-def crop_resize(image, face):
+def crop_resize(image, face, show=False):
     """
     return a cropped face img resized to FACE_SIZE*FACE_SIZE
+    Also Re-orient the face imgs
     face: ((x,y,w,h), r)
+    - use show=True to highlight 
     - essentially, these step should include normalization for illumination!!
     """
     x,y,w,h = face[0]
@@ -71,7 +73,7 @@ def crop_resize(image, face):
     
     # Re-orient and crop again
     # The first crop made sure that only one face and two eyes in second crop
-    rotated = rotate_face(thumbnail, face, False)
+    rotated = rotate_face(thumbnail, face, show)
     
     ###################################################
     ## Should add codes to normalize illumination!! ###
@@ -100,7 +102,7 @@ def rotate_face(img, face=None, show=False):
                                     1.2, 2, 0, (5,5))
     # highlight eyes if show=True
     if show:
-        print detected
+        print "eyes: ", detected
         cv.NamedWindow('eye_window', cv.CV_WINDOW_AUTOSIZE)
         for ((x,y,w,h), r) in detected:
             cv.Rectangle(img,(x,y),(x+w,y+h),(255,0,0),3,1)
@@ -148,7 +150,7 @@ def rotate_face(img, face=None, show=False):
         thumbnail = cv.CreateImage((FACE_SIZE, int(FACE_SIZE*HW_RATIO)), img.depth, img.nChannels)
         cv.Resize(face_rect, thumbnail)
         
-        print 'eye detection failed, unable to rotate face: ', face, '%d eyes detected'%num_eyes
+        print 'eye detection failed, unable to rotate face: ', face, ', %d eyes detected:'%num_eyes
         return thumbnail
 
 def gen_prob():
@@ -186,10 +188,11 @@ def rec_faces_in_img(path, clean_temp=False):
     image, faces = detect_face(path)
     i = 1
     for face in faces:
-        print "face: ", i
+        print "processing face: ", i
         # create and save the face thumbnail
+        # Note the crop_resize also rotates the img
         cv.SaveImage('temp/temp%d.jpg'%i, crop_resize(image, face))
-        # use pyface api to match thumbnail agains prob
+        # use pyface api to match thumbnail against prob
         (matchedfile, distance, runtime) = api_pyface('temp/temp%d.jpg'%i, 'prob', NUM_EIGENVECTOR, DISTANCE_THRESHOLD)
         face_matches.append({'face_pos':face, 'match':matchedfile, 'dist':distance})
         i+=1
