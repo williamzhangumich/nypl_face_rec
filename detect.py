@@ -231,6 +231,6 @@ if __name__ == "__main__":
     for face in faces:
         face_img = crop_resize(image, face)
         rotated = rotate_face(face_img)
-        cv.ShowImage('Image_Window_'+str(count), crop_resize(image, face))
+        cv.ShowImage('Image_Window_'+str(count), rotated)
         count+=1
     cv.WaitKey()

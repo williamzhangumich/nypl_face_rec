@@ -1,1 +1,0 @@
-Saved reconfaces, refreshes everytime after api_pyface(imgname, dirname, egfaces, thrshld)
