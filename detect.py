@@ -196,7 +196,8 @@ def rec_faces_in_img(path, clean_temp=False):
     #print face_matches
     if clean_temp:
         for f in os.listdir('./temp'):
-            os.remove('temp/'+f)
+            if re.search(r'.*\.jpg', f):
+                os.remove('temp/'+f)
     return image, face_matches
         
 def highlight_faces(img, face_matches):

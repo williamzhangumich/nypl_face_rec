@@ -1,0 +1,4 @@
+Stores the face images from gen_prob()
+Images will be matched against faces in this prob/ folder.
+
+* You would want to purge this folder when processing different photo collections (e.g.), purge when you start processing a new show

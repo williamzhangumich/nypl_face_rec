@@ -1,0 +1,2 @@
+store the temp face images in photo to be matched.
+- rec_faces_in_img(path, clean_temp=True) would keep removing temp photos
