@@ -6,11 +6,11 @@ import time
 ## PART 1: Detect face, crop, resize, rotate ####
 #################################################
 cv.NamedWindow('Image_Window', cv.CV_WINDOW_AUTOSIZE)
-image, faces = detect_face('prob_source\Eden-Espinosa.jpg') # read and detect face
+#image, faces = detect_face('prob_source\Eden-Espinosa.jpg') # read and detect face
 
 # Try the next one to see a failed eye detection...
 #image, faces = detect_face('prob_source\Joel-Grey.jpg') # 1 eye...
-#image, faces = detect_face('prob_source\Kristoffer-Cusick.jpg') # 4 eyes....
+image, faces = detect_face('prob_source\Kristoffer-Cusick.jpg') # 4 eyes....
 # There should be ways to eliminated these failures
 
 # Show original image
